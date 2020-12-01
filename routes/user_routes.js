@@ -5,6 +5,6 @@ const { indexUsers, showUser, changeUser } = require('../controllers/users_contr
 
 router.get('/', indexUsers);
 router.get('/:id', showUser);
-router.put('/:id', changeUser);
+router.patch('/:id', changeUser);
 
 module.exports = router;

@@ -10,5 +10,10 @@ function getUser(req) {
   return User.findById(userId);
 }
 
+function updateUser(req) {
+  const userId = req.params.id;
+  return User.findByIdAndUpdate(userId, req.body, { new: true });
+}
 
-module.exports = { getAllUsers, getUser };
+
+module.exports = { getAllUsers, getUser, updateUser };

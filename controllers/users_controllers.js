@@ -14,8 +14,8 @@ async function showUser(req, res) {
 }
 
 async function changeUser(req, res) {
-  // const user = await getUser(req)
-
+  const updatedUser = await updateUser(req);
+  res.status(200).json(updatedUser);
 }
 
 module.exports = {
