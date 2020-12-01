@@ -19,7 +19,16 @@ function login(req, res) {
   });
 }
 
+function logout(req, res) {
+  req.logout();
+  console.log('logged out user');
+  console.log('session object:', req.session);
+  console.log('req.user:', req.user);
+  res.sendStatus(200);
+}
+
 module.exports = {
   register,
-  login
+  login,
+  logout
 };
