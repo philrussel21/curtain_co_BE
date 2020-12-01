@@ -4,26 +4,59 @@ const { getAllUsers, getUser, updateUser, removeUser } = require('../utils/users
 // back if so
 
 async function indexUsers(req, res) {
-  const allUsers = await getAllUsers(req);
-  res.status(200).json(allUsers);
+  try {
+    const allUsers = await getAllUsers(req);
+    res.status(200).json(allUsers);
+
+  } catch (error) {
+    res.status(500).json({ message: error });
+  }
 }
 
 async function showUser(req, res) {
-  const user = await getUser(req);
-  res.status(200).json(user);
+  try {
+    const user = await getUser(req);
+
+    if (!user) {
+      res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ message: error });
+
+  }
 }
 
 async function changeUser(req, res) {
-  const updatedUser = await updateUser(req);
-  res.status(200).json(updatedUser);
+  try {
+    const updatedUser = await updateUser(req);
+
+    if (!updatedUser) {
+      res.status(400).json({ message: "Invalid Request. User not found" });
+    }
+
+    res.status(200).json(updatedUser);
+
+  } catch (error) {
+    res.status(500).json({ message: error });
+  }
 }
 
 async function deleteUser(req, res) {
-  // TODO - returns the removed user document
-  const removed = await removeUser(req);
-  // TODO - potentially redirect
-  // res.sendStatus(204);
-  res.status(202).send(removed);
+  try {
+    // TODO - potentially redirect
+    // TODO - returns the removed user document
+    const removedUser = await removeUser(req);
+    // res.sendStatus(204);
+
+    if (!removedUser) {
+      res.status(400).json({ message: "User not found. Unable to Delete user." });
+    }
+    res.status(202).send(removedUser);
+  } catch (error) {
+    res.status(500).json({ message: error });
+  }
 }
 
 
