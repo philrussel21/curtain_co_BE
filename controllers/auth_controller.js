@@ -4,7 +4,7 @@ const passport = require('passport');
 // TODO: validations and checks for existing users
 async function register(req, res) {
   const newUser = await User.create(req.body);
-  res.status(200).json({ message: newUser });
+  res.status(201).json({ message: newUser });
 }
 
 const authenticate = passport.authenticate('local', { failureFlash: true });
@@ -24,7 +24,7 @@ function logout(req, res) {
   console.log('logged out user');
   console.log('session object:', req.session);
   console.log('req.user:', req.user);
-  res.sendStatus(200);
+  res.sendStatus(204);
 }
 
 module.exports = {
