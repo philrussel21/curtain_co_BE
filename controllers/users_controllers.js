@@ -1,4 +1,4 @@
-const { getAllUsers, getUser, updateUser } = require('../utils/users');
+const { getAllUsers, getUser, updateUser, removeUser } = require('../utils/users');
 
 // TODO: Fail cases and where to redirect/ what to send
 // back if so
@@ -18,9 +18,18 @@ async function changeUser(req, res) {
   res.status(200).json(updatedUser);
 }
 
+async function deleteUser(req, res) {
+  // TODO - returns the removed user document
+  const removed = await removeUser(req);
+  // TODO - potentially redirect
+  // res.sendStatus(204);
+  res.status(202).send(removed);
+}
+
 
 module.exports = {
   indexUsers,
   showUser,
-  changeUser
+  changeUser,
+  deleteUser
 };
