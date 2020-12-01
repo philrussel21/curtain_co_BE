@@ -5,4 +5,9 @@ function getAllUsers(req) {
   return User.find();
 }
 
-module.exports = { getAllUsers };
+function getUser(req) {
+  const userId = req.params.id;
+  return User.findById(userId);
+}
+
+module.exports = { getAllUsers, getUser };
