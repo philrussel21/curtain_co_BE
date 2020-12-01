@@ -3,8 +3,7 @@ function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   } else {
-    req.flash('alert', "Please log in to continue");
-    res.redirect('/users/login');
+    res.status(401).json({ message: "Must be authenticated to access" });
   }
 }
 
@@ -12,8 +11,7 @@ function checkNotAuthenticated(req, res, next) {
   if (!req.isAuthenticated()) {
     return next();
   } else {
-    // TODO: change redirect
-    res.redirect('/');
+    res.status(401).json({ message: "Must NOT be authenticated to access" });
   }
 }
 
