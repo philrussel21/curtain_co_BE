@@ -1,4 +1,4 @@
-const { getAllUsers, getUser } = require('../utils/users');
+const { getAllUsers, getUser, updateUser } = require('../utils/users');
 
 // TODO: Fail cases and where to redirect/ what to send
 // back if so
@@ -13,7 +13,13 @@ async function showUser(req, res) {
   res.status(200).json(user);
 }
 
+async function changeUser(req, res) {
+  // const user = await getUser(req)
+
+}
+
 module.exports = {
   indexUsers,
-  showUser
+  showUser,
+  changeUser
 };

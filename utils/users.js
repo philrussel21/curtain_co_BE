@@ -6,8 +6,8 @@ function getAllUsers(req) {
 }
 
 function getUser(req) {
-  const userEmail = req.params.email;
-  return User.findOne({ email: userEmail });
+  const userId = req.params.id;
+  return User.findById(userId);
 }
 
 
