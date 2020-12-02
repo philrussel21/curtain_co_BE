@@ -3,21 +3,26 @@ const passport = require('passport');
 
 // TODO: validations and checks for existing users
 
-function isUniqueEmail({ body }) {
+async function isUniqueEmail({ body }) {
   const email = body.email;
-  return User.findOne({ email: email });
+  try {
+    const existingEmail = await User.findOne({ email: email });
+    return existingEmail === null;
+  } catch (error) {
+    return error;
+  }
 }
 
 async function register(req, res) {
-  if (!await isUniqueEmail(req)) {
+  if (isUniqueEmail(req)) {
     try {
       const newUser = await User.create(req.body);
-      res.status(201).json(newUser);
+      return res.status(201).json(newUser);
     } catch (error) {
-      res.status(400).json({ message: "Invalid Fields" });
+      return res.status(400).json({ message: "Invalid Fields" });
     }
   }
-  res.status(400).json({ message: "Existing Email" });
+  return res.status(400).json({ message: "Existing Email" });
 }
 
 const authenticate = passport.authenticate('local', { failureFlash: true });
@@ -27,8 +32,7 @@ function login(req, res) {
     console.log('authenticated', req.user.email);
     console.log('session object:', req.session);
     console.log('req.user:', req.user);
-    res.status(200);
-    res.json({ user: req.user, sessionID: req.sessionID });
+    res.status(200).json({ user: req.user, sessionID: req.sessionID });
   });
 }
 

@@ -18,7 +18,7 @@ async function showUser(req, res) {
     const user = await getUser(req);
 
     if (!user) {
-      res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: "User not found" });
     }
 
     res.status(200).json(user);
@@ -33,7 +33,7 @@ async function changeUser(req, res) {
     const updatedUser = await updateUser(req);
 
     if (!updatedUser) {
-      res.status(400).json({ message: "Invalid Request. User not found" });
+      return res.status(400).json({ message: "Invalid Request. User not found" });
     }
 
     res.status(200).json(updatedUser);
@@ -51,7 +51,7 @@ async function deleteUser(req, res) {
     // res.sendStatus(204);
 
     if (!removedUser) {
-      res.status(400).json({ message: "User not found. Unable to Delete user." });
+      return res.status(400).json({ message: "User not found. Unable to Delete user." });
     }
     res.status(202).send(removedUser);
   } catch (error) {
