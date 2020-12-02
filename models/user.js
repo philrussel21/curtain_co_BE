@@ -12,6 +12,10 @@ const User = new Schema({
     required: true,
     bcrypt: true
   },
+  role: {
+    type: String,
+    default: 'user'
+  },
   title: {
     type: String,
     // required: true
