@@ -18,7 +18,7 @@ const server = app.listen(port, () => {
 });
 
 // MONGODB
-const dbConnection = process.env.CONNECT_DB;
+const dbConnection = process.env.MONGODB_URI;
 // Set three properties to avoid deprecation warnings:
 mongoose.connect(dbConnection, {
   useNewUrlParser: true,
