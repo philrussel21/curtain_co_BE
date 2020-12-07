@@ -89,7 +89,7 @@ describe('Account API', () => {
   describe('POST Login Information', () => {
     const userCreds = {
       email: "testWrong@email",
-      password: "password"
+      password: "testpassword"
     };
 
     it("should NOT login with INVALID credentials", (done) => {
@@ -100,12 +100,13 @@ describe('Account API', () => {
         .end((err, res) => {
           expect(err).to.be.null;
           expect(res).to.have.status(401);
+          done();
         });
     });
 
 
     it("should login in with valid credentials", (done) => {
-      userCreds.email = "test@email";
+      userCreds.email = "testuser@email";
       chai.request(app)
         .post("/api/account")
         .type('form')
