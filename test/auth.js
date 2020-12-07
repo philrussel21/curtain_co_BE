@@ -17,7 +17,7 @@ const expect = chai.expect;
 // });
 
 describe('Connection to API', () => {
-  it("Should connect to the API", done => {
+  it("Should connect to the API", (done) => {
     chai.request(app)
       .get("/")
       .end((err, res) => {
@@ -27,20 +27,93 @@ describe('Connection to API', () => {
   });
 });
 
+
 describe('Account API', () => {
+  // Register POST route
+  describe('POST Register Information', () => {
+    const testData = {
+      "email": "testuser@email",
+      "password": "testpassword",
+      "title": "Ms.",
+      "fullName": "Michael Scarn",
+      "phone": 123456789,
+      "companyName": "Michael Scott Paper Company",
+      "address1": "123 Next Block Street",
+      "suburb": "Sunnybank",
+      "state": "Queensland",
+      "postcode": 4009
+    };
+
+    it('should register new user with valid credentials', (done) => {
+      chai.request(app)
+        .post("/api/account/register")
+        .type('form')
+        .send(testData)
+        .end((err, res) => {
+          expect(err).to.be.null;
+          expect(res).to.be.an('object');
+          expect(res).to.have.status(201);
+          done();
+        });
+    });
+
+    it("should NOT register when EXISTING user", (done) => {
+      chai.request(app)
+        .post("/api/account/register")
+        .type('form')
+        .send(testData)
+        .end((err, res) => {
+          expect(err).to.be.null;
+          expect(res).to.be.an('object');
+          expect(res).to.have.status(400);
+          done();
+        });
+    });
+
+    it("should NOT register with INVALID fields", (done) => {
+      delete testData.email;
+      chai.request(app)
+        .post("/api/account/register")
+        .type('form')
+        .send(testData)
+        .end((err, res) => {
+          expect(err).to.be.null;
+          expect(res).to.be.an('object');
+          expect(res).to.have.status(400);
+          done();
+        });
+    });
+  });
+
+  // Login POST route
   describe('POST Login Information', () => {
-    it("should login in with valid credentials", (done) => {
+    const userCreds = {
+      email: "testWrong@email",
+      password: "password"
+    };
+
+    it("should NOT login with INVALID credentials", (done) => {
       chai.request(app)
         .post("/api/account")
         .type('form')
-        .send({
-          "email": "test@email",
-          "password": "password"
-        })
+        .send(userCreds)
         .end((err, res) => {
           expect(err).to.be.null;
-          expect(res).to.have.status(200);
+          expect(res).to.have.status(401);
+        });
+    });
+
+
+    it("should login in with valid credentials", (done) => {
+      userCreds.email = "test@email";
+      chai.request(app)
+        .post("/api/account")
+        .type('form')
+        .send(userCreds)
+        .end((err, res) => {
+          expect(err).to.be.null;
           expect(res).to.be.an('object');
+          expect(res).to.have.status(200);
           done();
         });
     });
