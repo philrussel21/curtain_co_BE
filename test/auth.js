@@ -1,7 +1,8 @@
 process.env.NODE_ENV = 'test';
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const { app } = require('../server');
+const mongoose = require('mongoose');
+const { app, server } = require('../server');
 
 // Configures Chai to make requests
 chai.use(chaiHttp);
@@ -27,6 +28,16 @@ describe('Connection to API', () => {
   });
 });
 
+
+after(function (done) {
+  mongoose.connection.db.dropCollection('users', () => {
+    mongoose.connection.close(function () {
+      server.close(() => {
+        done();
+      });
+    });
+  });
+});
 
 describe('Account API', () => {
   // Register POST route
