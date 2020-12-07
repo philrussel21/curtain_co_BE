@@ -8,14 +8,8 @@ const { app, server } = require('../server');
 chai.use(chaiHttp);
 
 // Assertion type of use
-const expect = chai.expect;
+const { expect } = chai;
 
-
-// describe('Test', () => {
-//   it("Should fail for testing", done => {
-//     expect(1).to.be.null;
-//   });
-// });
 
 describe('Connection to API', () => {
   it("Should connect to the API", (done) => {
@@ -29,7 +23,7 @@ describe('Connection to API', () => {
 });
 
 
-after(function (done) {
+after(done => {
   mongoose.connection.db.dropCollection('users', () => {
     mongoose.connection.close(function () {
       server.close(() => {
