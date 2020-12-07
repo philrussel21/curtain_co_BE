@@ -10,6 +10,10 @@ function getUser(req) {
   return User.findById(userId);
 }
 
+function addUser(req) {
+  return User.create(req.body);
+}
+
 function updateUser(req) {
   const userId = req.params.id;
   return User.findByIdAndUpdate(userId, req.body, { new: true });
@@ -21,4 +25,4 @@ function removeUser(req) {
 }
 
 
-module.exports = { getAllUsers, getUser, updateUser, removeUser };
+module.exports = { getAllUsers, getUser, addUser, updateUser, removeUser };

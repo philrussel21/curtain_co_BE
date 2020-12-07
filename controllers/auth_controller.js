@@ -1,5 +1,6 @@
 const User = require('../models/user');
 const passport = require('passport');
+const { addUser } = require('../utils/users');
 
 // TODO: validations and checks for existing users
 
@@ -19,7 +20,7 @@ async function register(req, res) {
     if (existingEmail) {
       return res.status(400).json({ message: "Existing Email" });
     }
-    const newUser = await User.create(req.body);
+    const newUser = await addUser(req);
     return res.status(201).json(newUser);
   } catch (error) {
     return res.status(400).json({ message: "Invalid Fields" });
