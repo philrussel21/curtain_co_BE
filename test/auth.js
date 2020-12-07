@@ -40,6 +40,9 @@ after(function (done) {
 });
 
 describe('Account API', () => {
+  const agent = chai.request.agent(app);
+
+
   // Register POST route
   describe('POST Register Information', () => {
     const testData = {
@@ -103,6 +106,7 @@ describe('Account API', () => {
       password: "testpassword"
     };
 
+
     it("should NOT login with INVALID credentials", (done) => {
       chai.request(app)
         .post("/api/account")
@@ -116,9 +120,9 @@ describe('Account API', () => {
     });
 
 
-    it("should login in with valid credentials", (done) => {
+    it("should login with valid credentials", (done) => {
       userCreds.email = "testuser@email";
-      chai.request(app)
+      agent
         .post("/api/account")
         .type('form')
         .send(userCreds)
@@ -126,6 +130,45 @@ describe('Account API', () => {
           expect(err).to.be.null;
           expect(res).to.be.an('object');
           expect(res).to.have.status(200);
+          done();
+        });
+    });
+
+    it("should NOT login when already authenticated", (done) => {
+      agent
+        .post("/api/account")
+        .type('form')
+        .send(userCreds)
+        .end((err, res) => {
+          expect(err).to.be.null;
+          expect(res).to.be.an('object');
+          expect(res).to.have.status(401);
+          done();
+        });
+    });
+  });
+
+  // Logout GET route
+  describe('GET User Logout', () => {
+    it("should logout user", (done) => {
+      agent
+        .get("/api/account/logout")
+        .end((err, res) => {
+          expect(err).to.be.null;
+          expect(res).to.have.status(204);
+          done();
+        });
+    });
+
+    it("should NOT allow logout if NOT authenticated", (done) => {
+      agent
+        .get("/api/account/logout")
+        .end((err, res) => {
+          expect(err).to.be.null;
+          expect(res).to.be.an('object');
+          expect(res).to.have.status(401);
+          // CLOSES THE SERVER OPENED BY CHAI
+          agent.close();
           done();
         });
     });
