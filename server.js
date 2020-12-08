@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const mongoose = require('mongoose');
 const api = require('./routes/api');
@@ -12,13 +13,28 @@ if (process.env.NODE_ENV !== "production") {
 // USES PORT 5000
 const port = process.env.PORT || 5000;
 
+// CORS usage
+const allowList = ['https://thecurtainco.netlify.app/', 'http://localhost:3000'];
+const corsOptions = {
+  credentials: true,
+  origin: function (origin, callback) {
+    // Check each url in allowList and see if it includes the origin (instead of matching exact string)
+    const allowListIndex = allowList.findIndex((url) => url.includes(origin));
+    console.log("found allowListIndex", allowListIndex);
+    callback(null, allowListIndex > -1);
+  }
+};
+app.use(cors(corsOptions));
+
 // SERVER PORT LISTENING TO
 const server = app.listen(port, () => {
   console.log('listening on port:' + port);
 });
 
 // MONGODB
-const dbConnection = process.env.CONNECT_DB;
+const isTesting = (process.env.NODE_ENV === 'test');
+// TODO - set dev db
+const dbConnection = isTesting ? 'mongodb://localhost/curtainCo_test' : process.env.MONGODB_URI;
 // Set three properties to avoid deprecation warnings:
 mongoose.connect(dbConnection, {
   useNewUrlParser: true,

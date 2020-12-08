@@ -1,12 +1,12 @@
 const User = require('../models/user');
 const passport = require('passport');
+const { addUser } = require('../utils/users');
 
 // TODO: validations and checks for existing users
 
 async function isUniqueEmail({ body }) {
-  const email = body.email;
   try {
-    const existingEmail = await User.findOne({ email: email });
+
     return existingEmail === null;
   } catch (error) {
     return error;
@@ -14,15 +14,17 @@ async function isUniqueEmail({ body }) {
 }
 
 async function register(req, res) {
-  if (isUniqueEmail(req)) {
-    try {
-      const newUser = await User.create(req.body);
-      return res.status(201).json(newUser);
-    } catch (error) {
-      return res.status(400).json({ message: "Invalid Fields" });
+  const email = req.body.email;
+  try {
+    const existingEmail = await User.findOne({ email: email });
+    if (existingEmail) {
+      return res.status(400).json({ message: "Existing Email" });
     }
+    const newUser = await addUser(req);
+    return res.status(201).json(newUser);
+  } catch (error) {
+    return res.status(400).json({ message: "Invalid Fields" });
   }
-  return res.status(400).json({ message: "Existing Email" });
 }
 
 const authenticate = passport.authenticate('local', { failureFlash: true });
