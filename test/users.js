@@ -1,66 +1,22 @@
-// BETTER FORMAT - MORE ORGANISED IN SOME WAYS
 
-// const chai = require('chai');
-// const utilities = require('../utils/users');
-// const mongoose = require('mongoose');
-// const User = require('../models/user');
-// const { expect } = require('chai');
+const chai = require('chai');
+const { app } = require('../server');
+const agent = chai.request.agent(app);
+const { expect } = chai;
 
-// const dbConnection = 'mongodb://localhost/curtainCo_test';
+after(done => {
+  agent.close();
+  done();
+});
 
-// before(done => {
-//   setUpDbConnection(dbConnection, done);
-// });
+describe('Test', () => {
+  it("Should fail for testing", done => {
+    expect(null).to.be.null;
+    done();
+  });
+});
 
-// after(done => {
-//   mongoose.disconnect(() => done());
-// });
 
-// beforeEach(async function () {
-//   const user = await setUpUser();
-//   const userId = user.id;
-// });
-
-// afterEach(done => {
-//   deleteData()
-//     .then(res => done());
-// });
-// // describe('Test', () => {
-// //   it("Should fail for testing", done => {
-// //     expect(1).to.be.null;
-// //   });
-// // });
-
-// describe('User Model Actions', () => {
-//   // GET all users
-//   it('getAllUsers should return all users', async (done) => {
-//     const req = {
-//       params: {}
-//     };
-//     await utilities.getAllUsers(req)
-//     .end((err, res) => {
-//       expect()
-//       done();
-//     })
-//   });
-// });
-
-// function setUpDbConnection(dbURI, done) {
-//   mongoose.connect(dbURI, {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//     useFindAndModify: false
-//   },
-//     (err) => {
-//       if (err) {
-//         console.log('Error connecting to database', err);
-//         done();
-//       } else {
-//         console.log('Connected to database!');
-//         done();
-//       }
-//     });
-// }
 
 // function setUpUser() {
 //   const testUser = {};
@@ -75,8 +31,4 @@
 //   testUser.state = 'Queensland';
 //   testUser.postcode = 1234;
 //   return User.create(testUser);
-// }
-
-// function deleteData() {
-//   return User.deleteMany();
 // }
