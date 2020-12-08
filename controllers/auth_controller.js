@@ -2,16 +2,7 @@ const User = require('../models/user');
 const passport = require('passport');
 const { addUser } = require('../utils/users');
 
-// TODO: validations and checks for existing users
-
-async function isUniqueEmail({ body }) {
-  try {
-
-    return existingEmail === null;
-  } catch (error) {
-    return error;
-  }
-}
+// TODO: validations
 
 async function register(req, res) {
   const email = req.body.email;
