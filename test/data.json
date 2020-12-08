@@ -13,10 +13,10 @@
 		"role": "admin"
 	},
 	{
-		"email": "bilbo@email",
+		"email": "gandalf@email",
 		"password": "testpassword",
-		"title": "Dr.",
-		"fullName": "Michael Scarn",
+		"title": "Mr.",
+		"fullName": "Gandalf the Grey",
 		"phone": 123456789,
 		"companyName": "Sauron Slayer Ltd",
 		"address1": "123 Next Block Street",
@@ -25,12 +25,24 @@
 		"postcode": 4009
 	},
 	{
-		"email": "gandalf@email",
+		"email": "bilbo@email",
 		"password": "testpassword",
-		"title": "Mr.",
-		"fullName": "Gandalf the Grey",
+		"title": "Dr.",
+		"fullName": "Bilbo Baggins",
 		"phone": 123456789,
 		"companyName": "Sauron Slayer Ltd",
+		"address1": "123 Next Block Street",
+		"suburb": "Sunnybank",
+		"state": "Queensland",
+		"postcode": 4009
+	},
+	{
+		"email": "andy@email",
+		"password": "testpassword",
+		"title": "Dr.",
+		"fullName": "Andy Dwyer",
+		"phone": 123456789,
+		"companyName": "Comeback Society",
 		"address1": "123 Next Block Street",
 		"suburb": "Sunnybank",
 		"state": "Queensland",
