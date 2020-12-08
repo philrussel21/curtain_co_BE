@@ -11,6 +11,9 @@ const { logout } = require('../controllers/auth_controller');
 const accountRoute = '/api/account';
 const userRoute = '/api/users';
 
+let user1Id = null;
+let user2Id = null;
+let loggedUserId = null;
 
 
 before(done => {
@@ -27,7 +30,6 @@ after(done => {
 describe('ADMIN Role Actions', () => {
 
   const admin = testData.find(user => user.role === 'admin');
-  let user1Id = null;
 
 
   // Login as admin
@@ -41,7 +43,7 @@ describe('ADMIN Role Actions', () => {
       .end((err, res) => {
         expect(err).to.be.null;
         expect(res.body).to.be.an('array');
-        expect(res.body).to.have.lengthOf(3);
+        expect(res.body).to.have.lengthOf(4);
         expect(res.body[0].role).to.equal('admin');
         expect(res).to.have.status(200);
         done();
@@ -112,8 +114,30 @@ describe('USER Role Actions', () => {
   });
 
   // NOT GET all users
-  it('should NOT return all users', (done) => {
+  it('should NOT have access to all users', (done) => {
     agent.get(`${userRoute}`)
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res).to.have.status(401);
+        done();
+      });
+  });
+
+  // GET user profile
+  it('should show user profile', (done) => {
+    agent.get(`${userRoute}/${loggedUserId}`)
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res.body).to.be.an('object');
+        expect(res).to.have.status(200);
+        expect(res.body.email).to.equal(user.email);
+        done();
+      });
+  });
+
+  // NOT GET other user profile
+  it('should NOT show other people\'s user profile', (done) => {
+    agent.get(`${userRoute}/${user2Id}`)
       .end((err, res) => {
         expect(err).to.be.null;
         expect(res).to.have.status(401);
@@ -130,7 +154,8 @@ function authUser(user, done) {
       email: user.email,
       password: user.password
     })
-    .then(() => {
+    .then((res) => {
+      loggedUserId = res.body.user._id;
       done();
     })
     .catch(e => console.log(e));
@@ -139,7 +164,6 @@ function authUser(user, done) {
 function logOut(done) {
   agent.get(`${accountRoute}/logout`)
     .then(() => {
-      agent.close();
       done();
     });
 }
@@ -152,6 +176,7 @@ function setUpUsers(users, done) {
   Promise.all(promises)
     .then((users) => {
       user1Id = users[1]._id;
+      user2Id = users[2]._id;
       done();
     });
 }
