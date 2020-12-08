@@ -25,12 +25,12 @@ const User = new Schema({
     required: true,
   },
   phone: {
-    type: Number,
+    type: String,
     required: true
   },
   companyName: {
     type: String,
-    required: true
+    // required: true
   },
   address1: {
     type: String,
@@ -48,7 +48,7 @@ const User = new Schema({
     required: true
   },
   postcode: {
-    type: Number,
+    type: String,
     required: true
   }
 },
