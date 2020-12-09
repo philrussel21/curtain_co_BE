@@ -74,10 +74,6 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
-// HOME PAGE
-app.get('/', (req, res) => {
-  res.status(200).json({ welcome_message: 'Hello World!' });
-});
 
 // ALL OTHER ROUTES
 app.use('/api', api);
