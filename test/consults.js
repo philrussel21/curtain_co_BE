@@ -11,6 +11,7 @@ const [admin, user] = require('./test_data/users.json');
 const consultData = require('./test_data/consults.json');
 
 let consultId = null;
+let consultId2 = null;
 
 const newConsult = {
   email: 'chandler@email',
@@ -105,6 +106,61 @@ describe('Admin Role Consults Actions', () => {
       });
   });
 
+  // ADMIN Logout
+  it('should logout', (done) => {
+    logOut(done);
+  });
+
+});
+
+describe('User Role Consults Actions', () => {
+
+  // Login as user
+  it('should login as user', (done) => {
+    authUser(user, done);
+  });
+
+  // NOT GET all consults
+  it('should NOT have access to all consults', (done) => {
+    agent.get(`${consultRoute}`)
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res).to.have.status(401);
+        done();
+      });
+  });
+
+  // NOT GET one consult
+  it('should NOT have access to one consult', (done) => {
+    agent.get(`${consultRoute}/${consultId2}`)
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res).to.have.status(401);
+        done();
+      });
+  });
+
+  // NOT POST one new consult
+  it('should NOT have access to create one consult', (done) => {
+    agent.post(`${consultRoute}`)
+      .send(newConsult)
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res).to.have.status(401);
+        done();
+      });
+  });
+
+  // NOT DELETE one new consult
+  it('should NOT have access to delete one consult', (done) => {
+    agent.delete(`${consultRoute}/${consultId2}`)
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res).to.have.status(401);
+        done();
+      });
+  });
+
 });
 
 function authUser(user, done) {
@@ -130,6 +186,14 @@ function setUpConsults(consults, done) {
   Promise.all(promises)
     .then((consults) => {
       consultId = consults[0]._id;
+      consultId2 = consults[1]._id;
+      done();
+    });
+}
+
+function logOut(done) {
+  agent.get(`${accountRoute}/logout`)
+    .then(() => {
       done();
     });
 }
