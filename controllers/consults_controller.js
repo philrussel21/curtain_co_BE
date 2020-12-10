@@ -13,7 +13,7 @@ async function indexConsults(req, res) {
 async function createConsult(req, res) {
   try {
     const newConsult = await addConsult(req);
-    res.status(200).json(newConsult);
+    res.status(201).json(newConsult);
   } catch (error) {
     res.status(400).json({ message: "Invalid Fields", error: error });
   }
