@@ -40,3 +40,7 @@ describe('Auth API', () => {
 describe('User API', () => {
   require('./users');
 });
+
+describe('Consults API', () => {
+  require('./consults');
+});
