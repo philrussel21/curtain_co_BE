@@ -53,6 +53,20 @@ describe('Admin Role Consults Actions', () => {
         done();
       });
   });
+
+  // GET one consult
+  it('should get one particular consult using ID', (done) => {
+    agent.get(`${consultRoute}/${consultId}`)
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('object');
+        expect(res.body.email).to.equal('michael@email');
+        done();
+      });
+  });
+
+
 });
 
 function authUser(user, done) {
