@@ -24,12 +24,12 @@ describe('POST Register Information', () => {
     "password": "testpassword",
     "title": "Ms.",
     "fullName": "Michael Scarn",
-    "phone": 123456789,
+    "phone": "1234567892",
     "companyName": "Michael Scott Paper Company",
     "address1": "123 Next Block Street",
     "suburb": "Sunnybank",
-    "state": "Queensland",
-    "postcode": 4009
+    "state": "QLD",
+    "postcode": "4009"
   };
 
   it('should register new user with valid credentials', (done) => {

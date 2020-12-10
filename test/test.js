@@ -24,7 +24,7 @@ after(done => {
 describe('Connection to API', () => {
   it("Should connect to the API", (done) => {
     chai.request(app)
-      .get("/")
+      .get("/api")
       .end((err, res) => {
         expect(res).to.have.status(200);
         done();
