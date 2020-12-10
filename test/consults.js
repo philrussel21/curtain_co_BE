@@ -72,8 +72,11 @@ describe('Admin Role Consults Actions', () => {
       .send(newConsult)
       .then(res => {
         expect(res).to.have.status(201);
-        return agent.get(`${consultRoute}`)
-          .then((res) => {
+      })
+      .then(() => {
+        agent.get(`${consultRoute}`)
+          .end((err, res) => {
+            expect(err).to.be.null;
             expect(res).to.have.status(200);
             expect(res.body).to.be.an('array');
             expect(res.body).to.have.lengthOf(5);
@@ -81,6 +84,25 @@ describe('Admin Role Consults Actions', () => {
           });
       });
 
+  });
+
+  // DELETE one consult
+  it('should remove one consult', (done) => {
+    agent.delete(`${consultRoute}/${consultId}`)
+      .then(res => {
+        expect(res).to.have.status(202);
+        deletedConsult = res.body;
+      })
+      .then(() => {
+        agent.get(`${consultRoute}`)
+          .end((err, res) => {
+            expect(err).to.be.null;
+            expect(res).to.have.status(200);
+            expect(res.body).to.have.lengthOf(4);
+            expect(res.body).to.not.include(deletedConsult);
+            done();
+          });
+      });
   });
 
 });
