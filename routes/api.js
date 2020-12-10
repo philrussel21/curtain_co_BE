@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 const userRoutes = require('./user_routes');
 const authRoutes = require('./auth_routes');
+const { checkAuthenticated, checkAdmin } = require('../middlewares/auth');
 
 // HOME PAGE
 router.get('/', (req, res) => {
@@ -12,6 +13,6 @@ router.get('/', (req, res) => {
 
 
 router.use("/account", authRoutes);
-router.use("/users", userRoutes);
+router.use("/users", checkAuthenticated, userRoutes);
 
 module.exports = router;
