@@ -66,6 +66,22 @@ describe('Admin Role Consults Actions', () => {
       });
   });
 
+  // POST one consult
+  it('should add one consult', (done) => {
+    agent.post(`${consultRoute}`)
+      .send(newConsult)
+      .then(res => {
+        expect(res).to.have.status(201);
+        return agent.get(`${consultRoute}`)
+          .then((res) => {
+            expect(res).to.have.status(200);
+            expect(res.body).to.be.an('array');
+            expect(res.body).to.have.lengthOf(5);
+            done();
+          });
+      });
+
+  });
 
 });
 
