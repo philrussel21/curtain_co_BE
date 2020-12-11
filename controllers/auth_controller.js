@@ -1,13 +1,12 @@
-const User = require('../models/user');
 const passport = require('passport');
-const { addUser } = require('../utils/users');
+const { addUser, getUserByEmail } = require('../utils/users');
 
 // TODO: validations
 
 async function register(req, res) {
   const email = req.body.email;
   try {
-    const existingEmail = await User.findOne({ email: email });
+    const existingEmail = await getUserByEmail(req);
     if (existingEmail) {
       return res.status(400).json({ message: "Existing Email" });
     }

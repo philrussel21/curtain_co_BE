@@ -24,5 +24,10 @@ function removeUser(req) {
   return User.findByIdAndDelete(userId);
 }
 
+function getUserByEmail(req) {
+  const userEmail = req.body.email;
+  return User.findOne({ email: userEmail });
+}
 
-module.exports = { getAllUsers, getUser, addUser, updateUser, removeUser };
+
+module.exports = { getAllUsers, getUser, addUser, updateUser, removeUser, getUserByEmail };
