@@ -1,4 +1,4 @@
-const { getAllConsults, addConsult, getConsult, removeConsult } = require('../utils/consult');
+const { getAllConsults, addConsult, getConsult, removeConsult } = require('../utils/consults');
 
 async function indexConsults(req, res) {
   try {
