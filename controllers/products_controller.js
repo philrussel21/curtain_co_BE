@@ -34,6 +34,8 @@ async function showProduct(req, res) {
   }
 }
 
+// req.body has to have a category property and a valid
+// value as its value (Fabric, Track, Accessory)
 async function changeProduct(req, res) {
   try {
     const updatedProduct = await updateProduct(req);
