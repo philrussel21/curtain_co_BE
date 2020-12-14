@@ -7,6 +7,7 @@ const authRoutes = require('./auth_routes');
 const consultRoutes = require('./consult_routes');
 const productRoutes = require('./product_routes');
 const { checkAuthenticated, checkAdmin } = require('../middlewares/auth');
+const { singleUpload } = require('../config/file_upload');
 
 // HOME PAGE
 router.get('/', (req, res) => {
@@ -18,6 +19,17 @@ router.use("/account", authRoutes);
 router.use("/users", checkAuthenticated, userRoutes);
 router.use("/consults", checkAuthenticated, checkAdmin, consultRoutes);
 router.use("/products", productRoutes);
+
+
+// Route for uploads to S3
+router.post('/upload', (req, res) => {
+  singleUpload(req, res, (err) => {
+    if (err) {
+      return res.status(422).json({ message: 'File Upload Error', error: err.message });
+    }
+    res.status(201).json({ 'image': req.file });
+  });
+});
 
 
 module.exports = router;
