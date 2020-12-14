@@ -6,7 +6,7 @@ const userRoutes = require('./user_routes');
 const authRoutes = require('./auth_routes');
 const consultRoutes = require('./consult_routes');
 const productRoutes = require('./product_routes');
-const { checkAuthenticated, checkAdmin } = require('../middlewares/auth');
+const { checkAuthenticated } = require('../middlewares/auth');
 const { singleUpload } = require('../config/file_upload');
 
 // HOME PAGE
@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 
 router.use("/account", authRoutes);
 router.use("/users", checkAuthenticated, userRoutes);
-router.use("/consults", checkAuthenticated, checkAdmin, consultRoutes);
+router.use("/consults", consultRoutes);
 router.use("/products", productRoutes);
 
 

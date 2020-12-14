@@ -139,13 +139,14 @@ describe('User Role Consults Actions', () => {
       });
   });
 
-  // NOT POST one new consult
-  it('should NOT have access to create one consult', (done) => {
+  // POST one new consult
+  it('should have access to create one consult', (done) => {
     agent.post(`${consultRoute}`)
       .send(newConsult)
       .end((err, res) => {
         expect(err).to.be.null;
-        expect(res).to.have.status(401);
+        expect(res).to.have.status(201);
+        expect(res.body).to.be.an('object');
         done();
       });
   });

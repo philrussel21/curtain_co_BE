@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const { indexConsults, showConsult, createConsult, deleteConsult } = require('../controllers/consults_controller');
+const { checkAuthenticated, checkAdmin } = require('../middlewares/auth');
 
-
-router.get('/', indexConsults);
+router.get('/', checkAuthenticated, checkAdmin, indexConsults);
 router.post('/', createConsult);
-router.get('/:id', showConsult);
-router.delete('/:id', deleteConsult);
+router.get('/:id', checkAuthenticated, checkAdmin, showConsult);
+router.delete('/:id', checkAuthenticated, checkAdmin, deleteConsult);
 
 module.exports = router;
