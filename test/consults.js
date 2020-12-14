@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const agent = chai.request.agent(app);
 const { expect } = chai;
 const Consult = require('../models/consult');
-const { logout } = require('../controllers/auth_controller');
 const accountRoute = '/api/account';
 const consultRoute = '/api/consults';
 const [admin, user] = require('./test_data/users.json');

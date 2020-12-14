@@ -1,4 +1,3 @@
-
 const chai = require('chai');
 const { app } = require('../server');
 const mongoose = require('mongoose');
@@ -6,7 +5,6 @@ const agent = chai.request.agent(app);
 const { expect } = chai;
 const testData = require('./test_data/users.json');
 const User = require('../models/user');
-const { logout } = require('../controllers/auth_controller');
 const accountRoute = '/api/account';
 const userRoute = '/api/users';
 
