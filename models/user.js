@@ -21,8 +21,6 @@ const User = new Schema({
   },
   title: {
     type: String,
-    required: true,
-    enum: ['Mr.', 'Ms.', 'Mx.', 'Mrs.', 'Dr.']
   },
   fullName: {
     type: String,
