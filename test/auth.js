@@ -1,6 +1,7 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const { app } = require('../server');
+const [adminData, testData] = require('./test_data/auth.json');
 
 // Configures Chai to make requests
 chai.use(chaiHttp);
@@ -19,18 +20,21 @@ after(done => {
 
 // Register POST route
 describe('POST Register Information', () => {
-  const testData = {
-    "email": "testuser@email",
-    "password": "testpassword",
-    "title": "Ms.",
-    "fullName": "Michael Scarn",
-    "phone": "1234567892",
-    "companyName": "Michael Scott Paper Company",
-    "address1": "123 Next Block Street",
-    "suburb": "Sunnybank",
-    "state": "QLD",
-    "postcode": "4009"
-  };
+
+
+  it('should register new admin with valid credentials', (done) => {
+    chai.request(app)
+      .post("/api/account/register")
+      .type('form')
+      .send(adminData)
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res).to.be.an('object');
+        expect(res).to.have.status(201);
+        done();
+      });
+  });
+
 
   it('should register new user with valid credentials', (done) => {
     chai.request(app)
@@ -44,6 +48,8 @@ describe('POST Register Information', () => {
         done();
       });
   });
+
+
 
   it("should NOT register when EXISTING user", (done) => {
     chai.request(app)

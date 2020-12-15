@@ -22,7 +22,8 @@
 		"address1": "123 Next Block Street",
 		"suburb": "Sunnybank",
 		"state": "QLD",
-		"postcode": "4009"
+		"postcode": "4009",
+		"role": "user"
 	},
 	{
 		"email": "bilbo@email",

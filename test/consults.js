@@ -6,7 +6,8 @@ const { expect } = chai;
 const Consult = require('../models/consult');
 const accountRoute = '/api/account';
 const consultRoute = '/api/consults';
-const [admin, user] = require('./test_data/users.json');
+const [admin] = require('./test_data/auth.json');
+const [, , user] = require('./test_data/users.json');
 const consultData = require('./test_data/consults.json');
 
 let consultId = null;
@@ -24,6 +25,7 @@ const newConsult = {
   message: 'Could this test, BE any easier.'
 };
 
+
 before(done => {
   mongoose.connection.db.dropCollection('consults', () => {
     setUpConsults(consultData, done);
@@ -39,7 +41,7 @@ describe('Admin Role Consults Actions', () => {
 
   // Login as admin
   it('should login as admin', (done) => {
-    authUser(admin, done);
+    authUser(admin, 'admin', done);
   });
 
   // GET all consults
@@ -116,7 +118,7 @@ describe('User Role Consults Actions', () => {
 
   // Login as user
   it('should login as user', (done) => {
-    authUser(user, done);
+    authUser(user, 'user', done);
   });
 
   // NOT GET all consults
@@ -163,17 +165,20 @@ describe('User Role Consults Actions', () => {
 
 });
 
-function authUser(user, done) {
+
+function authUser(user, role, done) {
   agent.post(`${accountRoute}`)
     .type('form')
     .send({
       email: user.email,
       password: user.password
     })
-    .then(() => {
+    .end((err, res) => {
+      expect(err).to.be.null;
+      expect(res).to.have.status(200);
+      expect(res.body.user.role).to.equal(role);
       done();
-    })
-    .catch(e => console.log(e));
+    });
 }
 
 function setUpConsults(consults, done) {
@@ -193,7 +198,9 @@ function setUpConsults(consults, done) {
 
 function logOut(done) {
   agent.get(`${accountRoute}/logout`)
-    .then(() => {
+    .end((err, res) => {
+      expect(err).to.be.null;
+      expect(res).to.have.status(204);
       done();
     });
 }

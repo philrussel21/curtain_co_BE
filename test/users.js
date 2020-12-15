@@ -3,7 +3,7 @@ const { app } = require('../server');
 const mongoose = require('mongoose');
 const agent = chai.request.agent(app);
 const { expect } = chai;
-const testData = require('./test_data/users.json');
+const userData = require('./test_data/users.json');
 const User = require('../models/user');
 const accountRoute = '/api/account';
 const userRoute = '/api/users';
@@ -13,10 +13,14 @@ let user2Id = null;
 let loggedUserId = null;
 
 
+// before(done => {
+//   mongoose.connection.db.dropCollection('users', () => {
+//     setUpUsers(userData, done);
+//   });
+// });
+
 before(done => {
-  mongoose.connection.db.dropCollection('users', () => {
-    setUpUsers(testData, done);
-  });
+  setUpUsers(userData, done);
 });
 
 after(done => {
@@ -26,12 +30,12 @@ after(done => {
 
 describe('ADMIN Role Actions', () => {
 
-  const admin = testData.find(user => user.role === 'admin');
+  const admin = userData.find(user => user.role === 'admin');
 
 
   // Login as admin
   it('should login as admin', (done) => {
-    authUser(admin, done);
+    authUser(admin, 'admin', done);
   });
 
   // GET all users
@@ -40,7 +44,7 @@ describe('ADMIN Role Actions', () => {
       .end((err, res) => {
         expect(err).to.be.null;
         expect(res.body).to.be.an('array');
-        expect(res.body).to.have.lengthOf(4);
+        expect(res.body).to.have.lengthOf(6);
         expect(res.body[0].role).to.equal('admin');
         expect(res).to.have.status(200);
         done();
@@ -103,11 +107,11 @@ describe('ADMIN Role Actions', () => {
 
 describe('USER Role Actions', () => {
 
-  const user = testData.find(user => user.email === 'andy@email');
+  const user = userData.find(user => user.email === 'andy@email');
 
   // Login as user
   it('should login as user', (done) => {
-    authUser(user, done);
+    authUser(user, 'user', done);
   });
 
   // NOT GET all users
@@ -144,23 +148,39 @@ describe('USER Role Actions', () => {
 
 });
 
-function authUser(user, done) {
+// function authUser(user, done) {
+//   agent.post(`${accountRoute}`)
+//     .type('form')
+//     .send({
+//       email: user.email,
+//       password: user.password
+//     })
+//     .then((res) => {
+//       done();
+//     })
+//     .catch(e => console.log(e));
+// }
+function authUser(user, role, done) {
   agent.post(`${accountRoute}`)
     .type('form')
     .send({
       email: user.email,
       password: user.password
     })
-    .then((res) => {
+    .end((err, res) => {
       loggedUserId = res.body.user._id;
+      expect(err).to.be.null;
+      expect(res).to.have.status(200);
+      expect(res.body.user.role).to.equal(role);
       done();
-    })
-    .catch(e => console.log(e));
+    });
 }
 
 function logOut(done) {
   agent.get(`${accountRoute}/logout`)
-    .then(() => {
+    .end((err, res) => {
+      expect(err).to.be.null;
+      expect(res).to.have.status(204);
       done();
     });
 }
@@ -172,6 +192,7 @@ function setUpUsers(users, done) {
   }
   Promise.all(promises)
     .then((users) => {
+      // gets the id of the last document for delete route testing
       user1Id = users[1]._id;
       user2Id = users[2]._id;
       done();
