@@ -44,3 +44,7 @@ describe('User API', () => {
 describe('Consults API', () => {
   require('./consults');
 });
+
+describe('Products API', () => {
+  require('./products');
+});
