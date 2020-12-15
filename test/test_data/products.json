@@ -1,0 +1,58 @@
+[
+	{
+		"name": "Series 51 White Track",
+		"colour": "White",
+		"category": "Track",
+		"type": "Powder Coated",
+		"single": true,
+		"finialStyle": "Colonial",
+		"finialColour": "White",
+		"location": "Ceiling"
+	},
+	{
+		"name": "Linia Modesta",
+		"colour": "White",
+		"category": "Fabric",
+		"density": "Sheer",
+		"style": "SFold",
+		"size": "10",
+		"length": "Floor"
+	},
+	{
+		"name": "Clear Acrylic Flick",
+		"colour": "Clear",
+		"category": "Accessory",
+		"length": "140",
+		"automated": false,
+		"tieBack": "White Fabric and Tassel",
+		"other": "Bracket Covers"
+	},
+	{
+		"name": "Test Fabric Name",
+		"colour": "Fusha",
+		"category": "Fabric",
+		"density": "Sheer",
+		"style": "Eyelet",
+		"size": "12",
+		"length": "Floor"
+	},
+	{
+		"name": "Test Accessory Name",
+		"colour": "Light Green",
+		"category": "Accessory",
+		"length": "150",
+		"automated": true,
+		"tieBack": "Test Input",
+		"other": "Chrome covers"
+	},
+	{
+		"name": "Series 32 Blue Track",
+		"colour": "Blue",
+		"category": "Track",
+		"type": "Gloss Coated",
+		"single": true,
+		"finialStyle": null,
+		"finialColour": null,
+		"location": "Ceiling"
+	}
+]
