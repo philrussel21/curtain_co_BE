@@ -7,7 +7,8 @@
 		"single": true,
 		"finialStyle": "Colonial",
 		"finialColour": "White",
-		"location": "Ceiling"
+		"location": "Ceiling",
+		"price": 999
 	},
 	{
 		"name": "Linia Modesta",
@@ -16,7 +17,8 @@
 		"density": "Sheer",
 		"style": "SFold",
 		"size": "10",
-		"length": "Floor"
+		"length": "Floor",
+		"price": 999
 	},
 	{
 		"name": "Clear Acrylic Flick",
@@ -25,7 +27,8 @@
 		"length": "140",
 		"automated": false,
 		"tieBack": "White Fabric and Tassel",
-		"other": "Bracket Covers"
+		"other": "Bracket Covers",
+		"price": 999
 	},
 	{
 		"name": "Test Fabric Name",
@@ -34,7 +37,8 @@
 		"density": "Sheer",
 		"style": "Eyelet",
 		"size": "12",
-		"length": "Floor"
+		"length": "Floor",
+		"price": 999
 	},
 	{
 		"name": "Test Accessory Name",
@@ -43,7 +47,8 @@
 		"length": "150",
 		"automated": true,
 		"tieBack": "Test Input",
-		"other": "Chrome covers"
+		"other": "Chrome covers",
+		"price": 999
 	},
 	{
 		"name": "Series 32 Blue Track",
@@ -53,6 +58,7 @@
 		"single": true,
 		"finialStyle": null,
 		"finialColour": null,
-		"location": "Ceiling"
+		"location": "Ceiling",
+		"price": 999
 	}
 ]

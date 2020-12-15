@@ -1,64 +1,64 @@
 [
 	{
 		"name": "Series 51 White Track",
-		"imgUrl": "someUrl.com",
 		"colour": "White",
 		"category": "Track",
 		"type": "Powder Coated",
 		"single": true,
 		"finialStyle": "Colonial",
 		"finialColour": "White",
-		"location": "Ceiling"
+		"location": "Ceiling",
+		"price": 999
 	},
 	{
 		"name": "Linia Modesta",
-		"imgUrl": "someUrl.com",
 		"colour": "White",
 		"category": "Fabric",
 		"density": "Sheer",
 		"style": "SFold",
 		"size": "10",
-		"length": "Floor"
+		"length": "Floor",
+		"price": 999
 	},
 	{
 		"name": "Clear Acrylic Flick",
-		"imgUrl": "someUrl.com",
 		"colour": "Clear",
 		"category": "Accessory",
 		"length": "140",
 		"automated": false,
 		"tieBack": "White Fabric and Tassel",
-		"other": "Bracket Covers"
+		"other": "Bracket Covers",
+		"price": 999
 	},
 	{
 		"name": "Test Fabric Name",
-		"imgUrl": "someUrl.com",
 		"colour": "Fusha",
 		"category": "Fabric",
 		"density": "Sheer",
 		"style": "Eyelet",
 		"size": "12",
-		"length": "Floor"
+		"length": "Floor",
+		"price": 999
 	},
 	{
 		"name": "Test Accessory Name",
-		"imgUrl": "someUrl.com",
 		"colour": "Light Green",
 		"category": "Accessory",
 		"length": "150",
 		"automated": true,
 		"tieBack": "Test Input",
-		"other": "Chrome covers"
+		"other": "Chrome covers",
+		"price": 999
 	},
 	{
 		"name": "Series 32 Blue Track",
-		"imgUrl": "someUrl.com",
 		"colour": "Blue",
 		"category": "Track",
 		"type": "Gloss Coated",
 		"single": true,
 		"finialStyle": null,
 		"finialColour": null,
-		"location": "Ceiling"
+		"location": "Ceiling",
+		"price": 999
 	}
 ]
