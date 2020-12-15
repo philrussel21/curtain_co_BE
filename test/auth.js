@@ -2,6 +2,7 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const { app } = require('../server');
 const [adminData, testData] = require('./test_data/auth.json');
+const authRoute = "/api/account";
 
 // Configures Chai to make requests
 chai.use(chaiHttp);
@@ -24,7 +25,7 @@ describe('POST Register Information', () => {
 
   it('should register new admin with valid credentials', (done) => {
     chai.request(app)
-      .post("/api/account/register")
+      .post(`${authRoute}/register`)
       .type('form')
       .send(adminData)
       .end((err, res) => {
@@ -38,7 +39,7 @@ describe('POST Register Information', () => {
 
   it('should register new user with valid credentials', (done) => {
     chai.request(app)
-      .post("/api/account/register")
+      .post(`${authRoute}/register`)
       .type('form')
       .send(testData)
       .end((err, res) => {
@@ -53,7 +54,7 @@ describe('POST Register Information', () => {
 
   it("should NOT register when EXISTING user", (done) => {
     chai.request(app)
-      .post("/api/account/register")
+      .post(`${authRoute}/register`)
       .type('form')
       .send(testData)
       .end((err, res) => {
@@ -67,7 +68,7 @@ describe('POST Register Information', () => {
   it("should NOT register with INVALID fields", (done) => {
     delete testData.email;
     chai.request(app)
-      .post("/api/account/register")
+      .post(`${authRoute}/register`)
       .type('form')
       .send(testData)
       .end((err, res) => {
@@ -89,7 +90,7 @@ describe('POST Login Information', () => {
 
   it("should NOT login with INVALID credentials", (done) => {
     chai.request(app)
-      .post("/api/account")
+      .post(`${authRoute}`)
       .type('form')
       .send(userCreds)
       .end((err, res) => {
@@ -103,7 +104,7 @@ describe('POST Login Information', () => {
   it("should login with valid credentials", (done) => {
     userCreds.email = "testuser@email";
     agent
-      .post("/api/account")
+      .post(`${authRoute}`)
       .type('form')
       .send(userCreds)
       .end((err, res) => {
@@ -116,7 +117,7 @@ describe('POST Login Information', () => {
 
   it("should NOT login when already authenticated", (done) => {
     agent
-      .post("/api/account")
+      .post(`${authRoute}`)
       .type('form')
       .send(userCreds)
       .end((err, res) => {
@@ -132,7 +133,7 @@ describe('POST Login Information', () => {
 describe('GET User Logout', () => {
   it("should logout user", (done) => {
     agent
-      .get("/api/account/logout")
+      .get(`${authRoute}/logout`)
       .end((err, res) => {
         expect(err).to.be.null;
         expect(res).to.have.status(204);
@@ -142,7 +143,7 @@ describe('GET User Logout', () => {
 
   it("should NOT allow logout if NOT authenticated", (done) => {
     agent
-      .get("/api/account/logout")
+      .get(`${authRoute}/logout`)
       .end((err, res) => {
         expect(err).to.be.null;
         expect(res).to.be.an('object');
