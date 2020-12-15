@@ -1,6 +1,7 @@
 const chai = require('chai');
 const { app } = require('../server');
 const mongoose = require('mongoose');
+const fs = require('fs');
 const agent = chai.request.agent(app);
 const { expect } = chai;
 const Product = require('../models/product');
@@ -43,10 +44,79 @@ describe('Admin Role Products Actions', () => {
     authUser(admin, 'admin', done);
   });
 
+  // GET all products
+  it('should get all products as admin', (done) => {
+    agent.get(`${productRoute}/`)
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res.body).to.be.an('array');
+        expect(res).to.have.status(200);
+        expect(res.body).to.have.lengthOf(6);
+        done();
+      });
+  });
+
+  // GET single product
+  it('should get one particular product using ID', (done) => {
+    agent.get(`${productRoute}/${productId}`)
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('object');
+        expect(res.body.name).to.equal('Series 51 White Track');
+        done();
+      });
+  });
+
+  // POST new product
+  it('should add one product', (done) => {
+    agent.post('/api/upload')
+      .set('Content-Type', "multipart/form-data")
+      .attach('image', 'test/test_data/test_image.png')
+      .then(res => {
+        expect(res).to.have.status(201);
+        expect(res.body).to.be.an('object');
+        newProduct.imgUrl = res.body.image.location;
+      })
+      .then(() => {
+        agent.post(`${productRoute}/`)
+          .send(newProduct)
+          .type('form')
+          .end((err, res) => {
+            expect(err).to.be.null;
+            expect(res).to.have.status(201);
+            expect(res.body).to.be.an('object');
+            expect(res.body.name).to.equal('Awesome Fabric');
+            done();
+          });
+      });
+  });
+
+  // PATCH existing product
+  it('should update one product', (done) => {
+
+  });
+  // DELETE one product
+
   // Logout as admin
   it('should logout as admin', (done) => {
     logOut(done);
   });
+
+});
+
+describe('User Role Products Actions', () => {
+
+  // Login as user
+  it('should login as user', (done) => {
+    authUser(user, 'user', done);
+  });
+
+  // GET all products
+  // GET single product
+  // NOT POST new product
+  // NOT PATCH existing product
+  // NOT DELETE one product
 
 });
 
