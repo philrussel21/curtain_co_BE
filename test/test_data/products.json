@@ -1,6 +1,7 @@
 [
 	{
 		"name": "Series 51 White Track",
+		"imgUrl": "someUrl.com",
 		"colour": "White",
 		"category": "Track",
 		"type": "Powder Coated",
@@ -11,6 +12,7 @@
 	},
 	{
 		"name": "Linia Modesta",
+		"imgUrl": "someUrl.com",
 		"colour": "White",
 		"category": "Fabric",
 		"density": "Sheer",
@@ -20,6 +22,7 @@
 	},
 	{
 		"name": "Clear Acrylic Flick",
+		"imgUrl": "someUrl.com",
 		"colour": "Clear",
 		"category": "Accessory",
 		"length": "140",
@@ -29,6 +32,7 @@
 	},
 	{
 		"name": "Test Fabric Name",
+		"imgUrl": "someUrl.com",
 		"colour": "Fusha",
 		"category": "Fabric",
 		"density": "Sheer",
@@ -38,6 +42,7 @@
 	},
 	{
 		"name": "Test Accessory Name",
+		"imgUrl": "someUrl.com",
 		"colour": "Light Green",
 		"category": "Accessory",
 		"length": "150",
@@ -47,6 +52,7 @@
 	},
 	{
 		"name": "Series 32 Blue Track",
+		"imgUrl": "someUrl.com",
 		"colour": "Blue",
 		"category": "Track",
 		"type": "Gloss Coated",
