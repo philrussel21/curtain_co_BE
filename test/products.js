@@ -1,7 +1,7 @@
 const chai = require('chai');
 const { app } = require('../server');
 const mongoose = require('mongoose');
-const fs = require('fs');
+const { s3 } = require('../config/file_upload');
 const agent = chai.request.agent(app);
 const { expect } = chai;
 const Product = require('../models/product');
@@ -12,6 +12,7 @@ const productData = require('./test_data/products.json');
 
 let productId = null;
 let productId2 = null;
+let imgKey = null;
 
 const admin = userData.find(user => user.role === 'admin');
 const user = userData.find(user => user.role === 'user');
@@ -33,8 +34,19 @@ before(done => {
 });
 
 after(done => {
-  agent.close();
-  done();
+  // deletes the recently added image on AWS bucket to clean up after all the tests
+  const s3Params = {
+    Bucket: 'the-curtain-co',
+    Key: imgKey
+  };
+  s3.deleteObject(s3Params, (err, data) => {
+    if (err) {
+      console.log(err);
+    }
+    console.log('Removed Data:', data);
+    agent.close();
+    done();
+  });
 });
 
 describe('Admin Role Products Actions', () => {
@@ -77,6 +89,7 @@ describe('Admin Role Products Actions', () => {
         expect(res).to.have.status(201);
         expect(res.body).to.be.an('object');
         newProduct.imgUrl = res.body.image.location;
+        imgKey = res.body.image.key;
       })
       .then(() => {
         agent.post(`${productRoute}/`)

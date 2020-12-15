@@ -42,4 +42,4 @@ const upload = multer({
 // looks for image key in the form
 const singleUpload = upload.single('image');
 
-module.exports = { singleUpload };
+module.exports = { singleUpload, s3 };
