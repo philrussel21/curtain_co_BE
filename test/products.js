@@ -94,7 +94,18 @@ describe('Admin Role Products Actions', () => {
 
   // PATCH existing product
   it('should update one product', (done) => {
-
+    const product1 = {
+      category: 'Track',
+      name: 'Series 52 Black Rod'
+    };
+    agent.patch(`${productRoute}/${productId}`)
+      .send(product1)
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res).to.have.status(200);
+        expect(res.body.name).to.equal(product1.name);
+        done();
+      });
   });
   // DELETE one product
 
