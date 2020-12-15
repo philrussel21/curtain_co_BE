@@ -39,7 +39,6 @@ async function showProduct(req, res) {
 async function changeProduct(req, res) {
   try {
     const updatedProduct = await updateProduct(req);
-    console.log({ updatedProduct });
     if (!updatedProduct) {
       return res.status(400).json({ message: "Invalid Request. Product not found." });
     }
