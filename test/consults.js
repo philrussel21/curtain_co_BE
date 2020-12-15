@@ -6,12 +6,15 @@ const { expect } = chai;
 const Consult = require('../models/consult');
 const accountRoute = '/api/account';
 const consultRoute = '/api/consults';
-const [admin] = require('./test_data/auth.json');
-const [, , user] = require('./test_data/users.json');
+const userData = require('./test_data/users.json');
 const consultData = require('./test_data/consults.json');
 
 let consultId = null;
 let consultId2 = null;
+
+const admin = userData.find((user) => user.role === 'admin');
+const user = userData.find((user) => user.role === 'user');
+
 
 const newConsult = {
   email: 'chandler@email',
