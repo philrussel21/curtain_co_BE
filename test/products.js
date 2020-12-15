@@ -107,7 +107,25 @@ describe('Admin Role Products Actions', () => {
         done();
       });
   });
+
   // DELETE one product
+  it('should delete one product', (done) => {
+    agent.delete(`${productRoute}/${productId}`)
+      .then(res => {
+        expect(res).to.have.status(202);
+        deletedProduct = res.body;
+      })
+      .then(() => {
+        agent.get(`${productRoute}`)
+          .end((err, res) => {
+            expect(err).to.be.null;
+            expect(res).to.have.status(200);
+            expect(res.body).to.have.lengthOf(6);
+            expect(res.body).to.not.include(deletedProduct);
+            done();
+          });
+      });
+  });
 
   // Logout as admin
   it('should logout as admin', (done) => {
