@@ -142,10 +142,58 @@ describe('User Role Products Actions', () => {
   });
 
   // GET all products
+  it('should get all products as user', (done) => {
+    agent.get(`${productRoute}/`)
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res.body).to.be.an('array');
+        expect(res).to.have.status(200);
+        expect(res.body).to.have.lengthOf(6);
+        done();
+      });
+  });
+
   // GET single product
+  it('should get one particular product using ID', (done) => {
+    agent.get(`${productRoute}/${productId2}`)
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('object');
+        expect(res.body.name).to.equal('Linia Modesta');
+        done();
+      });
+  });
+
   // NOT POST new product
+  it('should NOT have access to add new product', (done) => {
+    agent.post(`${productRoute}`)
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res).to.have.status(401);
+        done();
+      });
+  });
+
   // NOT PATCH existing product
+  it('should NOT have access to update one product', (done) => {
+    agent.patch(`${productRoute}/${productId2}`)
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res).to.have.status(401);
+        done();
+      });
+  });
+
   // NOT DELETE one product
+  it('should NOT have access to delete one product', (done) => {
+    agent.delete(`${productRoute}/${productId2}`)
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res).to.have.status(401);
+        done();
+      });
+  });
 
 });
 
