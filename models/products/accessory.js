@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const Product = require('../product');
+const { Product } = require('../product');
 
 // TODO - validations
 const Accessory = Product.discriminator('Accessory', new Schema({

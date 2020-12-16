@@ -1,4 +1,4 @@
-const Product = require('../models/product');
+const { Product } = require('../models/product');
 const Fabric = require('../models/products/fabric');
 const Track = require('../models/products/track');
 const Accessory = require('../models/products/accessory');
