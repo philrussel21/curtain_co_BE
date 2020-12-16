@@ -6,7 +6,7 @@ const { indexCollections, showCollection, createCollection, changeCollection, de
 router.get('/', indexCollections);
 router.post('/', checkAuthenticated, checkAdmin, createCollection);
 router.get('/:id', showCollection);
-router.patch('/:id', checkAuthenticated, checkAdmin, changeCollection);
+router.put('/:id', checkAuthenticated, checkAdmin, changeCollection);
 router.delete('/:id', checkAuthenticated, checkAdmin, deleteCollection);
 
 module.exports = router;

@@ -62,13 +62,22 @@ describe('ADMIN Role Actions', () => {
       });
   });
 
-  // PATCH user details
+  // PUT user details
   it('should update one user profile', (done) => {
     const user1 = {
-      fullName: "Gandalf the White"
+      fullName: "Gandalf the White",
+      email: "gandalf@email",
+      password: "testpassword",
+      title: "Mr.",
+      phone: "1234567892",
+      companyName: "Sauron Slayer Ltd",
+      address1: "123 Next Block Street",
+      suburb: "Sunnybank",
+      state: "QLD",
+      postcode: "4009"
     };
 
-    agent.patch(`${userRoute}/${user1Id}`)
+    agent.put(`${userRoute}/${user1Id}`)
       .type('form')
       .send(user1)
       .end((err, res) => {

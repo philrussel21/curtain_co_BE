@@ -7,7 +7,7 @@ const { indexProducts, createProduct, showProduct, deleteProduct, changeProduct 
 router.get('/', indexProducts);
 router.post('/', checkAuthenticated, checkAdmin, createProduct);
 router.get('/:id', showProduct);
-router.patch('/:id', checkAuthenticated, checkAdmin, changeProduct);
+router.put('/:id', checkAuthenticated, checkAdmin, changeProduct);
 router.delete('/:id', checkAuthenticated, checkAdmin, deleteProduct);
 
 module.exports = router;

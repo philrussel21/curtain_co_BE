@@ -6,7 +6,7 @@ const { indexUsers, showUser, changeUser, deleteUser } = require('../controllers
 
 router.get('/', checkAdmin, indexUsers);
 router.get('/:id', checkAdminOrOwner, showUser);
-router.patch('/:id', checkAdminOrOwner, changeUser);
+router.put('/:id', checkAdminOrOwner, changeUser);
 router.delete('/:id', checkAdminOrOwner, deleteUser);
 
 module.exports = router;

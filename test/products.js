@@ -105,13 +105,19 @@ describe('Admin Role Products Actions', () => {
       });
   });
 
-  // PATCH existing product
+  // PUT existing product
   it('should update one product', (done) => {
     const product1 = {
       category: 'Track',
-      name: 'Series 52 Black Rod'
+      name: 'Series 52 Black Rod',
+      type: "Powder Coated",
+      single: true,
+      finialStyle: "Colonial",
+      finialColour: "White",
+      location: "Ceiling",
+      price: 999
     };
-    agent.patch(`${productRoute}/${productId}`)
+    agent.put(`${productRoute}/${productId}`)
       .send(product1)
       .end((err, res) => {
         expect(err).to.be.null;
@@ -188,9 +194,9 @@ describe('User Role Products Actions', () => {
       });
   });
 
-  // NOT PATCH existing product
+  // NOT PUT existing product
   it('should NOT have access to update one product', (done) => {
-    agent.patch(`${productRoute}/${productId2}`)
+    agent.put(`${productRoute}/${productId2}`)
       .end((err, res) => {
         expect(err).to.be.null;
         expect(res).to.have.status(401);
