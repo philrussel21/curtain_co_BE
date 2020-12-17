@@ -134,6 +134,24 @@ describe('Admin Role Collections Actions', () => {
   });
 
   // DELETE one collection
+  it('should delete one product', (done) => {
+    agent.delete(`${collectionRoute}/${collectionId}`)
+      .then(res => {
+        expect(res).to.have.status(202);
+        deletedCollection = res.body;
+      })
+      .then(() => {
+        agent.get(`${collectionRoute}`)
+          .end((err, res) => {
+            expect(err).to.be.null;
+            expect(res).to.have.status(200);
+            // TODO - lengthOf(2) when ADD route is working
+            expect(res.body).to.have.lengthOf(1);
+            expect(res.body).to.not.include(deletedCollection);
+            done();
+          });
+      });
+  });
 
   // Logout as admin
 });
