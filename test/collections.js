@@ -190,7 +190,16 @@ describe('User Role Collection Actions', () => {
         done();
       });
   });
+
   // NOT POST new collection
+  it('should NOT have access to add new collection', (done) => {
+    agent.post(`${collectionRoute}`)
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res).to.have.status(401);
+        done();
+      });
+  });
   // NOT PUT existing collection
   // NOT DELETE one collection
 });
