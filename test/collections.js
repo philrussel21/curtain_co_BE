@@ -200,7 +200,17 @@ describe('User Role Collection Actions', () => {
         done();
       });
   });
+
   // NOT PUT existing collection
+  it('should NOT have access to update one collection', (done) => {
+    agent.put(`${collectionRoute}/${collectionId2}`)
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res).to.have.status(401);
+        done();
+      });
+  });
+
   // NOT DELETE one collection
 });
 
