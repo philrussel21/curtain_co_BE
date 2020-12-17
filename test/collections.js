@@ -167,7 +167,17 @@ describe('User Role Collection Actions', () => {
   });
 
   // GET all collections
-
+  it('should get all collections as user', (done) => {
+    agent.get(`${collectionRoute}/`)
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res.body).to.be.an('array');
+        expect(res).to.have.status(200);
+        // TODO - Change to lenghtOf(2) when ADD collection route working
+        expect(res.body).to.have.lengthOf(1);
+        done();
+      });
+  });
   // GET single collection
   // NOT POST new collection
   // NOT PUT existing collection
