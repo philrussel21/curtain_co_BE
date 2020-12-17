@@ -212,6 +212,15 @@ describe('User Role Collection Actions', () => {
   });
 
   // NOT DELETE one collection
+  it('should NOT have access to delete one collection', (done) => {
+    agent.delete(`${collectionRoute}/${collectionId}`)
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res).to.have.status(401);
+        done();
+      });
+  });
+
 });
 
 // Assign objects to newCollectionCategory variable
