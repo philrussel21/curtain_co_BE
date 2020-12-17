@@ -154,11 +154,20 @@ describe('Admin Role Collections Actions', () => {
   });
 
   // Logout as admin
+  it('should logout as admin', (done) => {
+    logOut(done);
+  });
 });
 
 describe('User Role Collection Actions', () => {
+
   // Login as user
+  it('should login as user', (done) => {
+    authUser(user, 'user', done);
+  });
+
   // GET all collections
+
   // GET single collection
   // NOT POST new collection
   // NOT PUT existing collection
