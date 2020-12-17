@@ -45,6 +45,11 @@ describe('Consults API', () => {
   require('./consults');
 });
 
-describe('Products API', () => {
-  require('./products');
+// uncomment when internet connection is back up
+// describe('Products API', () => {
+//   require('./products');
+// });
+
+describe('Collection API', () => {
+  require('./collections');
 });
