@@ -37,19 +37,19 @@ before(done => {
 });
 
 after(done => {
-  // deletes the recently added image on AWS bucket to clean up after all the tests
-  // const s3Params = {
-  //   Bucket: 'the-curtain-co',
-  //   Key: imgKey
-  // };
-  // s3.deleteObject(s3Params, (err, data) => {
-  //   if (err) {
-  //     console.log(err);
-  //   }
-  //   console.log('Removed Data:', data);
-  agent.close();
-  done();
-  // });
+  // deletes the recently added image on AWS bucket to clean up after all the tests;
+  const s3Params = {
+    Bucket: 'the-curtain-co',
+    Key: imgKey
+  };
+  s3.deleteObject(s3Params, (err, data) => {
+    if (err) {
+      console.log(err);
+    }
+    console.log('Removed Data:', data);
+    agent.close();
+    done();
+  });
 });
 
 describe('Admin Role Collections Actions', () => {
@@ -83,7 +83,29 @@ describe('Admin Role Collections Actions', () => {
   });
 
   // POST new collection
-  // TODO - when internet connection comes back
+  it('should add one product', (done) => {
+    agent.post('/api/upload')
+      .set('Content-Type', "multipart/form-data")
+      .attach('image', 'test/test_data/test_image.png')
+      .then(res => {
+        expect(res).to.have.status(201);
+        expect(res.body).to.be.an('object');
+        newCollection.imgUrl = res.body.image.location;
+        imgKey = res.body.image.key;
+      })
+      .then(() => {
+        agent.post(`${collectionRoute}/`)
+          .send(newCollection)
+          .type('form')
+          .end((err, res) => {
+            expect(err).to.be.null;
+            expect(res).to.have.status(201);
+            expect(res.body).to.be.an('object');
+            expect(res.body.name).to.equal('Test Collection');
+            done();
+          });
+      });
+  });
 
   // PUT existing collection
   it('should update one collection', (done) => {
@@ -145,8 +167,7 @@ describe('Admin Role Collections Actions', () => {
           .end((err, res) => {
             expect(err).to.be.null;
             expect(res).to.have.status(200);
-            // TODO - lengthOf(2) when ADD route is working
-            expect(res.body).to.have.lengthOf(1);
+            expect(res.body).to.have.lengthOf(2);
             expect(res.body).to.not.include(deletedCollection);
             done();
           });
@@ -173,8 +194,7 @@ describe('User Role Collection Actions', () => {
         expect(err).to.be.null;
         expect(res.body).to.be.an('array');
         expect(res).to.have.status(200);
-        // TODO - Change to lenghtOf(2) when ADD collection route working
-        expect(res.body).to.have.lengthOf(1);
+        expect(res.body).to.have.lengthOf(2);
         done();
       });
   });
