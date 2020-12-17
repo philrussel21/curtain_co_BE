@@ -178,7 +178,18 @@ describe('User Role Collection Actions', () => {
         done();
       });
   });
+
   // GET single collection
+  it('should get one particular collection using ID', (done) => {
+    agent.get(`${collectionRoute}/${collectionId2}`)
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('object');
+        expect(res.body.name).to.equal('Winter Breeze');
+        done();
+      });
+  });
   // NOT POST new collection
   // NOT PUT existing collection
   // NOT DELETE one collection
