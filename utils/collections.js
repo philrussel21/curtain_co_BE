@@ -1,4 +1,4 @@
-const Collection = require('../models/collection');
+const { Collection } = require('../models/collection');
 
 function getAllCollections() {
   return Collection.find();

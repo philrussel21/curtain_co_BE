@@ -14,4 +14,7 @@ const Collection = new Schema({
 },
   { timestamps: true });
 
-module.exports = mongoose.model('Collections', Collection);
+module.exports = {
+  Collection: mongoose.model('Collections', Collection),
+  CollectionSchema: Collection
+};
