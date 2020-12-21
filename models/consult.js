@@ -50,7 +50,8 @@ const Consult = new Schema({
   message: {
     type: String,
     required: true
-  }
+  },
+  isProcessed: { type: Boolean, default: false }
 },
   // adds createdAt and updatedAt attributes when saving
   // to DB

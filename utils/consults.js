@@ -14,6 +14,11 @@ function getConsult(req) {
   return Consult.findById(consultId);
 }
 
+function updateConsult(req) {
+  const consultId = req.params.id;
+  return Consult.findByIdAndUpdate(consultId);
+}
+
 function removeConsult(req) {
   const consultId = req.params.id;
   return Consult.findByIdAndDelete(consultId);
@@ -23,5 +28,6 @@ module.exports = {
   getAllConsults,
   addConsult,
   getConsult,
+  updateConsult,
   removeConsult
 };

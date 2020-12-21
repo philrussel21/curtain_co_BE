@@ -1,4 +1,4 @@
-const { getAllConsults, addConsult, getConsult, removeConsult } = require('../utils/consults');
+const { getAllConsults, addConsult, getConsult, updateConsult, removeConsult } = require('../utils/consults');
 
 async function indexConsults(req, res) {
   try {
@@ -33,6 +33,20 @@ async function showConsult(req, res) {
   }
 }
 
+async function changeConsult(req, res) {
+  try {
+    const updatedConsult = await updateConsult(req);
+
+    if (!updatedConsult) {
+      return res.status(400).json({ message: "Invalid Request. Consult not found." });
+    }
+
+    res.status(200).json(updatedConsult);
+  } catch (error) {
+    res.status(500).json({ message: error });
+  }
+}
+
 async function deleteConsult(req, res) {
   try {
     const removedConsult = await removeConsult(req);
@@ -51,5 +65,6 @@ module.exports = {
   indexConsults,
   createConsult,
   showConsult,
+  changeConsult,
   deleteConsult
 };
