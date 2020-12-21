@@ -72,4 +72,7 @@ const User = new Schema({
 // User.index({'email': 1})
 User.plugin(require('mongoose-bcrypt'));
 
-module.exports = mongoose.model('User', User);
+module.exports = {
+  User: mongoose.model('User', User),
+  UserSchema: User
+};

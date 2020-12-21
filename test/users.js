@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const agent = chai.request.agent(app);
 const { expect } = chai;
 const userData = require('./test_data/users.json');
-const User = require('../models/user');
+const { User } = require('../models/user');
 const accountRoute = '/api/account';
 const userRoute = '/api/users';
 
