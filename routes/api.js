@@ -7,6 +7,7 @@ const authRoutes = require('./auth_routes');
 const consultRoutes = require('./consult_routes');
 const productRoutes = require('./product_routes');
 const collectionRoutes = require('./collection_routes');
+const orderRoutes = require('./order_routes');
 const { checkAuthenticated, checkAdmin } = require('../middlewares/auth');
 const { singleUpload } = require('../config/file_upload');
 
@@ -21,6 +22,7 @@ router.use("/users", checkAuthenticated, userRoutes);
 router.use("/consults", consultRoutes);
 router.use("/products", productRoutes);
 router.use("/collections", collectionRoutes);
+router.use("/orders", checkAuthenticated, orderRoutes);
 
 
 // Route for uploads to S3
