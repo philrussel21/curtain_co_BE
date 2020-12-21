@@ -62,8 +62,9 @@ const User = new Schema({
     minlength: 4,
     maxlength: 4
   },
-  products: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
-  collections: [{ type: Schema.Types.ObjectId, ref: 'Collection' }]
+  // products: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
+  // collections: [{ type: Schema.Types.ObjectId, ref: 'Collection' }]
+  orders: [{ type: Schema.Types.ObjectId, ref: "Order" }]
 },
   // adds createdAt and updatedAt attributes when saving
   // to DB
