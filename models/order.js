@@ -8,9 +8,13 @@ const { CollectionSchema } = require('./collection');
 // TODO  - set _id from paypal's response: order_id 
 const Order = new Schema({
   customer: UserSchema,
-  products: [ProductSchema],
-  collections: [CollectionSchema],
-  isProcessed: { type: Boolean, default: false }
+  // products: [ProductSchema],
+  // collections: [CollectionSchema],
+  items: { type: Array, required: true },
+  // to be changed when admin process the orders?
+  isProcessed: { type: Boolean, default: false },
+  totalPrice: { type: Number },
+  paymentData: { type: Object, required: true }
 },
   { timestamps: true });
 
