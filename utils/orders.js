@@ -2,6 +2,7 @@ const Order = require('../models/order');
 
 function getAllOrders() {
   return Order.find();
+  // return Order.find().populate('customer');
 }
 
 function addOrder(req) {
@@ -10,6 +11,7 @@ function addOrder(req) {
 
 function getOrder(req) {
   const orderId = req.params.id;
+  // return Order.findById(orderId).populate('customer');
   return Order.findById(orderId);
 }
 

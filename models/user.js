@@ -63,7 +63,7 @@ const User = new Schema({
     maxlength: 4
   },
 
-  orders: [{ type: String, ref: "Order" }]
+  orders: [{ type: String, ref: "Orders" }]
 },
   // adds createdAt and updatedAt attributes when saving
   // to DB

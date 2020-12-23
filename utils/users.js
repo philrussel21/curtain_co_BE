@@ -7,7 +7,7 @@ function getAllUsers(req) {
 
 function getUser(req) {
   const userId = req.params.id;
-  return User.findById(userId);
+  return User.findById(userId).populate('orders');
 }
 
 function addUser(req) {
