@@ -1,4 +1,5 @@
 const { getAllOrders, addOrder, getOrder, updateOrder } = require('../utils/orders');
+const { addOrderToUser } = require('../utils/users');
 
 async function indexOrders(req, res) {
   try {
@@ -11,7 +12,9 @@ async function indexOrders(req, res) {
 
 async function createOrder(req, res) {
   try {
+    req.body.customer = req.user.id;
     const newOrder = await addOrder(req);
+    await addOrderToUser(req.user, req.body._id);
     res.status(201).json(newOrder);
   } catch (error) {
     res.status(400).json({ message: "Invalid Fields", error: error });
