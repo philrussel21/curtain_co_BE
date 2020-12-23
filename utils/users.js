@@ -29,5 +29,14 @@ function getUserByEmail(req) {
   return User.findOne({ email: userEmail });
 }
 
+async function addOrderToUser(user, orderId) {
+  try {
+    const updatedOrders = [...user.orders, orderId];
+    await User.findByIdAndUpdate(user.id, { orders: updatedOrders }, { new: true });
+  } catch (error) {
+    console.log(error);
+  }
+}
 
-module.exports = { getAllUsers, getUser, addUser, updateUser, removeUser, getUserByEmail };
+
+module.exports = { getAllUsers, getUser, addUser, updateUser, removeUser, getUserByEmail, addOrderToUser };
