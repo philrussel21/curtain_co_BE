@@ -6,7 +6,8 @@ const Schema = mongoose.Schema;
 const Product = new Schema({
   name: { type: String },
   colour: { type: String },
-  imgUrl: { type: String }
+  imgUrl: { type: String },
+  price: { type: Number }
 },
   {
     discriminatorKey: 'category',
