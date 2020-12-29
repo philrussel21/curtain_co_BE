@@ -1,7 +1,11 @@
 const { Collection } = require('../models/collection');
 
 function getAllCollections() {
-  return Collection.find();
+  return Collection.find()
+    .populate('track')
+    .populate('fabric')
+    .populate('accessory')
+    .lean();
 }
 
 function addCollection(req) {
@@ -10,7 +14,11 @@ function addCollection(req) {
 
 function getCollection(req) {
   const collectionId = req.params.id;
-  return Collection.findById(collectionId);
+  return Collection.findById(collectionId)
+    .populate('track')
+    .populate('fabric')
+    .populate('accessory')
+    .lean();
 }
 
 function updateCollection(req) {
