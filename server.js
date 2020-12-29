@@ -34,7 +34,7 @@ const server = app.listen(port, () => {
 // MONGODB
 const isTesting = (process.env.NODE_ENV === 'test');
 // TODO - set dev db
-const dbConnection = isTesting ? 'mongodb://localhost/curtainCo_test' : 'mongodb://localhost/curtainCo' || process.env.MONGODB_URI;
+const dbConnection = isTesting ? 'mongodb://localhost/curtainCo_test' : process.env.MONGODB_URI || 'mongodb://localhost/curtainCo';
 // Set three properties to avoid deprecation warnings:
 mongoose.connect(dbConnection, {
   useNewUrlParser: true,
