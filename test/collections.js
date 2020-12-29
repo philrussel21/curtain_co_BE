@@ -1,3 +1,5 @@
+// TODO - save products, extract id, assign to collection then save to
+// test db to proceed with the tests.
 const chai = require('chai');
 const { app } = require('../server');
 const mongoose = require('mongoose');
