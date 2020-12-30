@@ -6,7 +6,7 @@ const { checkAuthenticated, checkAdmin } = require('../middlewares/auth');
 router.get('/', checkAuthenticated, checkAdmin, indexConsults);
 router.post('/', createConsult);
 router.get('/:id', checkAuthenticated, checkAdmin, showConsult);
-router.get('/:id', checkAuthenticated, checkAdmin, changeConsult);
+router.patch('/:id', checkAuthenticated, checkAdmin, changeConsult);
 router.delete('/:id', checkAuthenticated, checkAdmin, deleteConsult);
 
 module.exports = router;

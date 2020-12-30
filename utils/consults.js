@@ -16,7 +16,7 @@ function getConsult(req) {
 
 function updateConsult(req) {
   const consultId = req.params.id;
-  return Consult.findByIdAndUpdate(consultId);
+  return Consult.findByIdAndUpdate(consultId, req.body, { new: true });
 }
 
 function removeConsult(req) {
