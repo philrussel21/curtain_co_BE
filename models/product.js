@@ -7,7 +7,8 @@ const Product = new Schema({
   name: { type: String },
   colour: { type: String },
   imgUrl: { type: String },
-  price: { type: Number }
+  price: { type: Number },
+  description: { type: String }
 },
   {
     discriminatorKey: 'category',
