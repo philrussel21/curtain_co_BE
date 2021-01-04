@@ -4,13 +4,7 @@ const { Product } = require('../product');
 
 // TODO - validations
 const Accessory = Product.discriminator('Accessory', new Schema({
-  // name: { type: String },
-  length: { type: String },
-  automated: { type: Boolean },
-  tieBack: { type: String },
-  other: { type: String },
+  type: { type: String, enum: ['Flick Stick', 'Automated', 'Tie Back', 'Other'] }
 }));
-// adds createdAt and updatedAt fields
-// { timestamps: true });
 
 module.exports = mongoose.model('Accessory');
