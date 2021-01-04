@@ -12,7 +12,6 @@ const ordersData = require('./test_data/orders.json');
 // Needs to login before seeding test database for customer attribute
 
 let orderId = null;
-let orderId2 = null;
 
 const admin = userData.find(user => user.role === 'admin');
 const user = userData.find(user => user.role === 'user');
@@ -69,7 +68,7 @@ describe('Admin Role Order Actions', () => {
 
   // GET all orders
   it('should get all orders as admin', (done) => {
-    agent.get(`${orderRoute}/`)
+    agent.get(`${orderRoute}`)
       .end((err, res) => {
         expect(err).to.be.null;
         expect(res.body).to.be.an('array');
@@ -106,6 +105,50 @@ describe('Admin Role Order Actions', () => {
         done();
       });
   });
+
+  // Logout as admin
+  it('should logout as admin', (done) => {
+    logOut(done);
+  });
+});
+
+describe('User Role Orders Actions', () => {
+
+  // Login as user
+  it('should login as user', (done) => {
+    authUser(user, 'user', done);
+  });
+
+  // NOT GET all orders
+  it('should NOT have access to get all orders', (done) => {
+    agent.get(`${orderRoute}`)
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res).to.have.status(401);
+        done();
+      });
+  });
+
+  // NOT GET single order
+  it('should NOT have access to get one order', (done) => {
+    agent.get(`${orderRoute}/${orderId}`)
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res).to.have.status(401);
+        done();
+      });
+  });
+
+  // POST new order
+  // NOT PUT existing order
+  it('should NOT have access to update one order', (done) => {
+    agent.put(`${orderRoute}/${orderId}`)
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res).to.have.status(401);
+        done();
+      });
+  });
 });
 
 function setUpOrders(orders, user) {
@@ -119,7 +162,6 @@ function setUpOrders(orders, user) {
   return Promise.all(promises)
     .then((order) => {
       orderId = order[0]._id;
-      orderId2 = order[1]._id;
     });
 }
 
