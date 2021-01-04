@@ -31,9 +31,9 @@ const newCollection = {
 
 before(done => {
   mongoose.connection.db.dropCollection('collections', () => {
-    getAndAssignProductByCategory('Track');
-    getAndAssignProductByCategory('Fabric');
-    getAndAssignProductByCategory('Accessory');
+    getAndAssignProductByCategory('Track', newCollection);
+    getAndAssignProductByCategory('Fabric', newCollection);
+    getAndAssignProductByCategory('Accessory', newCollection);
     setUpCollections(collectionData, done);
   });
 });
@@ -114,38 +114,7 @@ describe('Admin Role Collections Actions', () => {
     const collection1 = {
       name: "Updated Summer Breeze",
       description: "Updated Collection for testing purposes.",
-      price: 999,
-      track: {
-        name: "Series 51 White Track",
-        colour: "White",
-        category: "Track",
-        type: "Powder Coated",
-        single: true,
-        finialStyle: "Colonial",
-        finialColour: "White",
-        location: "Ceiling",
-        price: 999
-      },
-      fabric: {
-        name: "Linia Modesta",
-        colour: "White",
-        category: "Fabric",
-        density: "Sheer",
-        style: "SFold",
-        size: "10",
-        length: "Floor",
-        price: 999
-      },
-      accessory: {
-        name: "Test Accessory Name",
-        colour: "Light Green",
-        category: "Accessory",
-        length: "150",
-        automated: true,
-        tieBack: "Test Input",
-        other: "Chrome covers",
-        price: 999
-      }
+      price: 999
     };
     agent.put(`${collectionRoute}/${collectionId}`)
       .send(collection1)
@@ -246,18 +215,18 @@ describe('User Role Collection Actions', () => {
 });
 
 // Assign objects to newCollectionCategory variable
-function getAndAssignProductByCategory(cat) {
+function getAndAssignProductByCategory(cat, collection) {
   Product.findOne({ category: cat })
     .then(res => {
       switch (cat) {
         case 'Track':
-          newCollection.track = res;
+          collection.track = new Array(res);
           break;
         case 'Fabric':
-          newCollection.fabric = res;
+          collection.fabric = new Array(res);
           break;
         default:
-          newCollection.accessory = res;
+          collection.accessory = new Array(res);
           break;
       }
     });
@@ -267,7 +236,12 @@ function setUpCollections(collections, done) {
   const promises = [];
   console.log('Collection Data Init');
 
+  // finds a Track, Fabric & Accessory to be put
+  // in a collection prior to creation
   for (const collection of collections) {
+    getAndAssignProductByCategory('Track', collection);
+    getAndAssignProductByCategory('Fabric', collection);
+    getAndAssignProductByCategory('Accessory', collection);
     promises.push(Collection.create(collection));
   }
   Promise.all(promises)
