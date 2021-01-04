@@ -63,7 +63,7 @@ describe('Admin Role Products Actions', () => {
         expect(err).to.be.null;
         expect(res.body).to.be.an('array');
         expect(res).to.have.status(200);
-        expect(res.body).to.have.lengthOf(6);
+        expect(res.body).to.have.lengthOf(7);
         done();
       });
   });
@@ -139,7 +139,7 @@ describe('Admin Role Products Actions', () => {
           .end((err, res) => {
             expect(err).to.be.null;
             expect(res).to.have.status(200);
-            expect(res.body).to.have.lengthOf(6);
+            expect(res.body).to.have.lengthOf(7);
             expect(res.body).to.not.include(deletedProduct);
             done();
           });
@@ -167,7 +167,7 @@ describe('User Role Products Actions', () => {
         expect(err).to.be.null;
         expect(res.body).to.be.an('array');
         expect(res).to.have.status(200);
-        expect(res.body).to.have.lengthOf(6);
+        expect(res.body).to.have.lengthOf(7);
         done();
       });
   });

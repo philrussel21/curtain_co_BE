@@ -21,14 +21,31 @@
 		"price": 999
 	},
 	{
-		"name": "Clear Acrylic Flick",
+		"name": "Clear Acrylic Flick - 140cm",
 		"colour": "Clear",
+		"price": 99,
 		"category": "Accessory",
-		"length": "140",
-		"automated": false,
-		"tieBack": "White Fabric and Tassel",
-		"other": "Bracket Covers",
-		"price": 999
+		"type": "Flick Stick",
+		"imgUrl": "www.someimage.com",
+		"description": "Test Accessory"
+	},
+	{
+		"name": "White Fabric and Tassel",
+		"colour": "Gold",
+		"price": 99,
+		"category": "Accessory",
+		"type": "Tie Back",
+		"imgUrl": "www.someimage.com",
+		"description": "Test Accessory"
+	},
+	{
+		"name": "Bracket Covers",
+		"colour": "Brass",
+		"price": 99,
+		"category": "Accessory",
+		"type": "Other",
+		"imgUrl": "www.someimage.com",
+		"description": "Test Accessory"
 	},
 	{
 		"name": "Test Fabric Name",
@@ -38,16 +55,6 @@
 		"style": "Eyelet",
 		"size": "12",
 		"length": "Floor",
-		"price": 999
-	},
-	{
-		"name": "Test Accessory Name",
-		"colour": "Light Green",
-		"category": "Accessory",
-		"length": "150",
-		"automated": true,
-		"tieBack": "Test Input",
-		"other": "Chrome covers",
 		"price": 999
 	},
 	{
