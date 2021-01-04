@@ -93,6 +93,19 @@ describe('Admin Role Order Actions', () => {
 
 
   // PUT existing order
+  it('should update one order', (done) => {
+    const order1 = {
+      isProcessed: true
+    };
+    agent.put(`${orderRoute}/${orderId}`)
+      .send(order1)
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res).to.have.status(200);
+        expect(res.body.isProcessed).to.be.true;
+        done();
+      });
+  });
 });
 
 function setUpOrders(orders, user) {
