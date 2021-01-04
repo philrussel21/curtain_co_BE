@@ -52,3 +52,7 @@ describe('Products API', () => {
 describe('Collection API', () => {
   require('./collections');
 });
+
+describe('Orders API', () => {
+  require('./orders');
+});
