@@ -17,23 +17,25 @@ const admin = userData.find(user => user.role === 'admin');
 const user = userData.find(user => user.role === 'user');
 
 const newOrder = {
-  _id: "PAYPAL_ID_NEW",
-  items: [
+  "_id": "PAYPAL_ID_NEW",
+  "items": [
     {
-      name: "Bracket Covers",
-      colour: "Brass",
-      price: 99,
-      category: "Accessory",
-      type: "Other",
-      imgUrl: "www.someimage.com",
-      description: "Test Accessory"
+      "name": "Bracket Covers",
+      "colour": "Brass",
+      "price": 99,
+      "category": "Accessory",
+      "type": "Other",
+      "imgUrl": "www.someimage.com",
+      "description": "Test Accessory"
     }
   ],
-  totalPrice: 99,
-  paymentData: {
-    paymentId: "Sample Paypal ID"
+  "totalPrice": 99,
+  "paymentData": {
+    "paymentId": "Sample Paypal ID"
   }
 };
+
+
 
 before(done => {
   mongoose.connection.db.dropCollection('orders', () => {
@@ -140,6 +142,19 @@ describe('User Role Orders Actions', () => {
   });
 
   // POST new order
+  it('should add one order', (done) => {
+    agent.post(`${orderRoute}/`)
+      .send(newOrder)
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res).to.have.status(201);
+        expect(res.body).to.be.an('object');
+        expect(res.body._id).to.equal('PAYPAL_ID_NEW');
+        done();
+      });
+  });
+
+
   // NOT PUT existing order
   it('should NOT have access to update one order', (done) => {
     agent.put(`${orderRoute}/${orderId}`)
