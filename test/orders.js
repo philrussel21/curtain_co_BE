@@ -80,6 +80,18 @@ describe('Admin Role Order Actions', () => {
   });
 
   // GET single order
+  it('should get one particular order using ID', (done) => {
+    agent.get(`${orderRoute}/${orderId}`)
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('object');
+        expect(res.body._id).to.equal('PAYPAL_ID01');
+        done();
+      });
+  });
+
+
   // PUT existing order
 });
 
