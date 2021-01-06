@@ -1,8 +1,7 @@
 const Order = require('../models/order');
 
 function getAllOrders() {
-  return Order.find();
-  // return Order.find().populate('customer');
+  return Order.find().sort({ updatedAt: 1 }).populate('customer');
 }
 
 function addOrder(req) {
