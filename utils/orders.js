@@ -16,7 +16,7 @@ function getOrder(req) {
 
 function updateOrder(req) {
   const orderId = req.params.id;
-  return Order.findByIdAndUpdate(orderId, req.body, { new: true });
+  return Order.findByIdAndUpdate(orderId, req.body, { new: true }).populate('customer');
 }
 
 // will not create a removeOrder route for taxing purposes?
