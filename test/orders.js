@@ -93,12 +93,12 @@ describe('Admin Role Order Actions', () => {
   });
 
 
-  // PUT existing order
+  // PATCH existing order
   it('should update one order', (done) => {
     const order1 = {
       isProcessed: true
     };
-    agent.put(`${orderRoute}/${orderId}`)
+    agent.patch(`${orderRoute}/${orderId}`)
       .send(order1)
       .end((err, res) => {
         expect(err).to.be.null;
@@ -155,9 +155,9 @@ describe('User Role Orders Actions', () => {
   });
 
 
-  // NOT PUT existing order
+  // NOT PATCH existing order
   it('should NOT have access to update one order', (done) => {
-    agent.put(`${orderRoute}/${orderId}`)
+    agent.patch(`${orderRoute}/${orderId}`)
       .end((err, res) => {
         expect(err).to.be.null;
         expect(res).to.have.status(401);

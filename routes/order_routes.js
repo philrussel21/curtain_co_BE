@@ -6,6 +6,6 @@ const { checkAdmin } = require('../middlewares/auth');
 router.get('/', checkAdmin, indexOrders);
 router.post('/', createOrder);
 router.get('/:id', checkAdmin, showOrder);
-router.put('/:id', checkAdmin, changeOrder);
+router.patch('/:id', checkAdmin, changeOrder);
 
 module.exports = router;
